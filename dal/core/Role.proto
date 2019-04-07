@@ -1,0 +1,34 @@
+syntax="proto3";
+package com.bootapp.dal.core.grpc;
+
+service RoleService {
+    // User Authorities
+    rpc InvokeNewUserAuthority(RoleServiceReq) returns (RoleServiceResp);
+    rpc InvokeUpdateUserAuthority(RoleServiceReq) returns (RoleServiceResp);
+    rpc InvokeDeleteUserAuthority(RoleServiceReq) returns (RoleServiceResp);
+    rpc QueryUserAuthorities(RoleServiceReq) returns (RoleServiceResp);
+    // User Roles
+    rpc InvokeNewUserRole(RoleServiceReq) returns (RoleServiceResp);
+    rpc InvokeUpdateUserRole(RoleServiceReq) returns (RoleServiceResp);
+    rpc InvokeDeleteUserRole(RoleServiceReq) returns (RoleServiceResp);
+    rpc QueryUserRoles(RoleServiceReq) returns (RoleServiceResp);
+    // Org Authorities
+    rpc InvokeNewOrgAuthority(RoleServiceReq) returns (RoleServiceResp);
+    rpc InvokeUpdateOrgAuthority(RoleServiceReq) returns (RoleServiceResp);
+    rpc InvokeDeleteOrgAuthority(RoleServiceReq) returns (RoleServiceResp);
+    rpc QueryOrgAuthorities(RoleServiceReq) returns (RoleServiceResp);
+    // Org Roles
+    rpc InvokeNewOrgRole(RoleServiceReq) returns (RoleServiceResp);
+    rpc InvokeUpdateOrgRole(RoleServiceReq) returns (RoleServiceResp);
+    rpc InvokeDeleteOrgRole(RoleServiceReq) returns (RoleServiceResp);
+    rpc QueryOrgRoles(RoleServiceReq) returns (RoleServiceResp);
+}
+
+
+
+message RoleServiceReq {
+
+}
+message RoleServiceResp {
+
+}

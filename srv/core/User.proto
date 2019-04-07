@@ -1,0 +1,37 @@
+syntax="proto3";
+package com.bootapp.srv.core.grpc;
+
+service UserService {
+    rpc Register(RegisterReq) returns (Resp);
+    rpc Login(Req) returns (Resp);
+    rpc Activate(Req) returns (Resp);
+    rpc UserInfo(Req) returns (Resp);
+}
+
+enum UserServiceType {
+    NULL = 0;
+    REGISTER_REQ_TYPE_PASS = 1;
+    REGISTER_RESP_TYPE_SUCCESS = 100;
+    LOGIN_REQ_TYPE_PASS = 1001;
+
+}
+message RegisterReq {
+    UserServiceType type = 1;
+    string    key = 2;
+    string    secret = 3;
+}
+message LoginReq {
+    UserServiceType type = 1;
+    string      key = 2;
+    string    secret = 3;
+    string    code = 4;
+    string    org_id = 5;
+}
+
+
+message Req {
+    UserServiceType type = 1;
+}
+message Resp {
+    UserServiceType type = 1;
+}

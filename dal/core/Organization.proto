@@ -1,0 +1,17 @@
+syntax="proto3";
+package com.bootapp.dal.core.grpc;
+
+service OrgService {
+    rpc InvokeNewOrganization(OrgServiceReq) returns (OrgServiceResp);
+    rpc InvokeUpdateOrganization(OrgServiceReq) returns (OrgServiceResp);
+    rpc QueryOrganizations(OrgServiceReq) returns (OrgServiceResp);
+}
+
+
+
+message OrgServiceReq {
+
+}
+message OrgServiceResp {
+
+}

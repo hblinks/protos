@@ -1,0 +1,17 @@
+syntax="proto3";
+package com.bootapp.dal.core.grpc;
+
+service AdminService {
+    rpc InvokeNewAdmin(AdminServiceReq) returns (AdminServiceResp);
+    rpc InvokeUpdateAdmin(AdminServiceReq) returns (AdminServiceResp);
+    rpc QueryAdmins(AdminServiceReq) returns (AdminServiceResp);
+}
+
+
+
+message AdminServiceReq {
+
+}
+message AdminServiceResp {
+
+}
