@@ -1,24 +1,51 @@
 syntax="proto3";
-package com.bootapp.srv.core.grpc;
+package srv_core_user;
+import "google/api/annotations.proto";
 
-service UserService {
-    rpc Register(RegisterReq) returns (Resp);
-    rpc Login(Req) returns (Resp);
-    rpc Activate(Req) returns (Resp);
-    rpc UserInfo(Req) returns (Resp);
+service SrvCoreUserService {
+    rpc Register(RegisterReq) returns (Resp) {
+        option (google.api.http) = {
+            post: "/auth/register"
+        };
+    }
+    rpc Login(LoginReq) returns (Resp) {
+        option (google.api.http) = {
+            post: "/auth/login"
+        };
+    }
+    rpc Activate(Req) returns (Resp) {
+        option (google.api.http) = {
+            post: "/auth/activate"
+        };
+    }
+    rpc UserInfo(Req) returns (Resp) {
+        option (google.api.http) = {
+            post: "/auth/info"
+        };
+    }
 }
-
 enum UserServiceType {
     NULL = 0;
-    REGISTER_REQ_TYPE_PASS = 1;
-    REGISTER_RESP_TYPE_SUCCESS = 100;
-    LOGIN_REQ_TYPE_PASS = 1001;
+
+    REGISTER_REQ_TYPE_USERNAME_PASS = 1;
+    REGISTER_REQ_TYPE_PHONE_PASS = 2;
+    REGISTER_REQ_TYPE_EMAIL_PASS = 3;
+    REGISTER_REQ_TYPE_PHONE_CODE = 4;
+
+    LOGIN_REQ_TYPE_USERNAME_PASS = 201;
+    LOGIN_REQ_TYPE_EMAIL_PASS = 202;
+    LOGIN_REQ_TYPE_PHONE_PASS = 203;
+    LOGIN_REQ_TYPE_ANY_PASS = 204;
+    LOGIN_REQ_TYPE_PHONE_CODE = 205;
+    LOGIN_REQ_TYPE_PHONE_LOGIN_OR_REG = 206;
+
 
 }
 message RegisterReq {
     UserServiceType type = 1;
     string    key = 2;
     string    secret = 3;
+    string    referral_code = 4;
 }
 message LoginReq {
     UserServiceType type = 1;
@@ -27,7 +54,6 @@ message LoginReq {
     string    code = 4;
     string    org_id = 5;
 }
-
 
 message Req {
     UserServiceType type = 1;

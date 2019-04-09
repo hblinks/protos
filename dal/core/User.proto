@@ -1,13 +1,14 @@
-syntax="proto3";
-package com.bootapp.dal.core.grpc;
+syntax = "proto3";
+option java_package = "com.bootapp.dal.core.grpc";
+package dal_core_user;
 
-service UserService {
+service DalCoreUserService {
     //--- create a user
     rpc InvokeNewUser(UserInfo) returns (UserQueryResp);
     //--- update a user
-    rpc InvokeUpdateUser(UserInfo) returns (UserQueryResp);
+    rpc InvokeUpdateUserById(UserInfo) returns (UserQueryResp);
     //--- query a single user
-    rpc QueryUser(UserQueryReq) returns (UserQueryResp);
+    rpc QueryUser(UserInfo) returns (UserQueryResp);
     //--- query users with params
     rpc QueryUsers(UsersQueryReq) returns (UsersQueryResp);
     //--- delete users that are not activated
@@ -30,9 +31,6 @@ enum UserServiceType {
 }
 message UserServiceReq {
 
-}
-message UserQueryReq {
-    UserInfo user = 1;
 }
 message UsersQueryReq {
     UserInfo user = 1;

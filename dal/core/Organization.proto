@@ -1,5 +1,6 @@
 syntax="proto3";
-package com.bootapp.dal.core.grpc;
+option java_package = "com.bootapp.dal.core.grpc";
+package dal_core_user;
 
 service OrgService {
     rpc InvokeNewOrganization(OrgServiceReq) returns (OrgServiceResp);
