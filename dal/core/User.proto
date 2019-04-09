@@ -1,6 +1,7 @@
 syntax = "proto3";
 option java_package = "com.bootapp.dal.core.grpc";
-package dal_core_user;
+import "google/protobuf/empty.proto";
+package dal_core;
 
 service DalCoreUserService {
     //--- create a user
@@ -12,7 +13,7 @@ service DalCoreUserService {
     //--- query users with params
     rpc QueryUsers(UsersQueryReq) returns (UsersQueryResp);
     //--- delete users that are not activated
-    rpc InvokeDelInactiveUsers(UserServiceReq) returns (UserQueryResp);
+    rpc InvokeDelInactiveUsers(google.protobuf.Empty) returns (UserQueryResp);
 }
 
 enum UserServiceType {
@@ -29,9 +30,7 @@ enum UserServiceType {
     USER_QUERY_STATUS_WRONG_PASS = 303;
 
 }
-message UserServiceReq {
 
-}
 message UsersQueryReq {
     UserInfo user = 1;
     int64 offset_id = 2;
