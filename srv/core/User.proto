@@ -29,6 +29,10 @@ service SrvCoreUserService {
 }
 enum UserServiceType {
     NULL = 0;
+    RESP_SUCCESS = 1;
+    RESP_FAIL = 2;
+
+    ERR_UNEXPECTED = 51;
 
     REGISTER_TYPE_USERNAME_PASS = 101;
     REGISTER_TYPE_PHONE_PASS = 102;
@@ -41,6 +45,9 @@ enum UserServiceType {
     LOGIN_TYPE_ANY_PASS = 204;
     LOGIN_TYPE_PHONE_CODE = 205;
     LOGIN_TYPE_PHONE_LOGIN_OR_REG = 206;
+
+    REGISTER_ERR_DUPLICATE_ENTRY = 1001;
+    LOGIN_ERR_WRONG_PASS = 1101;
 }
 
 message RegisterReq {
@@ -60,8 +67,6 @@ message LoginResp {
 }
 
 message Req {
-    UserServiceType type = 1;
 }
 message Resp {
-    UserServiceType type = 1;
 }
