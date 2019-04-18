@@ -9,7 +9,7 @@ service SrvCoreUserService {
             body: "*"
         };
     }
-    rpc Login(LoginReq) returns (Resp) {
+    rpc Login(LoginReq) returns (LoginResp) {
         option (google.api.http) = {
             post: "/auth/login"
             body: "*"
@@ -41,10 +41,8 @@ enum UserServiceType {
     LOGIN_TYPE_ANY_PASS = 204;
     LOGIN_TYPE_PHONE_CODE = 205;
     LOGIN_TYPE_PHONE_LOGIN_OR_REG = 206;
-
-
-
 }
+
 message RegisterReq {
     UserServiceType type = 1;
     string    key = 2;
@@ -57,6 +55,8 @@ message LoginReq {
     string    secret = 3;
     string    code = 4;
     string    org_id = 5;
+}
+message LoginResp {
 }
 
 message Req {
