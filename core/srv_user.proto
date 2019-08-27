@@ -1,0 +1,70 @@
+syntax="proto3";
+package core;
+option java_package = "com.bootapp.core.grpc";
+import "google/api/annotations.proto";
+import "core_common.proto";
+
+service SrvCoreUserService {
+    rpc Register(RegisterReq) returns (UserWithOrg) {
+        option (google.api.http) = {
+            post: "/api/auth/register"
+            body: "*"
+        };
+    }
+    rpc Login(LoginReq) returns (UserWithOrg) {
+        option (google.api.http) = {
+            post: "/api/auth/login"
+            body: "*"
+        };
+    }
+    rpc Activate(Empty) returns (Empty) {
+        option (google.api.http) = {
+            post: "/api/auth/activate"
+            body: "*"
+        };
+    }
+    rpc UserInfo(Empty) returns (Empty) {
+        option (google.api.http) = {
+            get: "/api/auth/info"
+        };
+    }
+    rpc ResetPassword(Empty) returns (Empty) {
+        option (google.api.http) = {
+            post: "/api/auth/reset-password"
+            body: "*"
+        };
+    }
+}
+
+enum RegisterType {
+    REGISTER_TYPE_NULL = 0;
+    REGISTER_TYPE_USERNAME_PASS = 1;
+    REGISTER_TYPE_PHONE_PASS = 2;
+    REGISTER_TYPE_EMAIL_PASS = 3;
+    REGISTER_TYPE_PHONE_CODE = 4;
+    REGISTER_TYPE_PHONE_PASS_CODE = 5;
+}
+enum LoginType {
+    LOGIN_TYPE_NULL = 0;
+    LOGIN_TYPE_USERNAME_PASS = 1;
+    LOGIN_TYPE_EMAIL_PASS = 2;
+    LOGIN_TYPE_PHONE_PASS = 3;
+    LOGIN_TYPE_ANY_PASS = 4;
+    LOGIN_TYPE_PHONE_CODE = 5;
+    LOGIN_TYPE_PHONE_LOGIN_OR_REG = 6;
+}
+
+message RegisterReq {
+    RegisterType type = 1;
+    string    key = 2;
+    string    secret = 3;
+    string    code = 4;
+    string    referral_code = 5;
+}
+message LoginReq {
+    LoginType type = 1;
+    string      key = 2;
+    string    secret = 3;
+    string    code = 4;
+    string    org_id = 5;
+}

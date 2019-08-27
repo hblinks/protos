@@ -1,0 +1,37 @@
+syntax="proto3";
+import "google/api/annotations.proto";
+import "core_common.proto";
+option java_package = "com.bootapp.core.grpc";
+package core;
+service SrvSecurityService {
+    rpc SendPhoneCode(SmsReq) returns (Empty) {
+        option (google.api.http) = {
+            get: "/api/sms/send/{phone}"
+        };
+    }
+    rpc VerifyPhoneCode(SmsVerifyReq) returns (Empty) {
+        option (google.api.http) = {
+            get: "/api/sms/verify/{phone}/{code}"
+        };
+    }
+}
+
+enum SmsType {
+    SMS_NULL = 0;
+    SMS_CODE_LOGIN = 1;
+    SMS_CODE_REGISTER = 2;
+    SMS_CODE_RESET_PASS = 3;
+    SMS_LANG_CN = 101;
+}
+message SmsReq {
+    string phone = 1;
+    SmsType type = 2;
+    SmsType lang = 3;
+    string text = 4;
+}
+
+message SmsVerifyReq {
+    string phone = 1;
+    string code = 2;
+    SmsType type = 3;
+}
