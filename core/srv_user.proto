@@ -17,6 +17,12 @@ service SrvCoreUserService {
             body: "*"
         };
     }
+    rpc ResetPassword(ResetPasswordReq) returns (Empty) {
+        option (google.api.http) = {
+            post: "/api/auth/reset-password"
+            body: "*"
+        };
+    }
     rpc Activate(Empty) returns (Empty) {
         option (google.api.http) = {
             post: "/api/auth/activate"
@@ -26,12 +32,6 @@ service SrvCoreUserService {
     rpc UserInfo(Empty) returns (Empty) {
         option (google.api.http) = {
             get: "/api/auth/info"
-        };
-    }
-    rpc ResetPassword(Empty) returns (Empty) {
-        option (google.api.http) = {
-            post: "/api/auth/reset-password"
-            body: "*"
         };
     }
 }
@@ -53,6 +53,10 @@ enum LoginType {
     LOGIN_TYPE_PHONE_CODE = 5;
     LOGIN_TYPE_PHONE_LOGIN_OR_REG = 6;
 }
+enum ResetPasswordType {
+    RESET_PASS_TYPE_NULL = 0;
+    RESET_PASS_TYPE_PHONE_CODE = 1;
+}
 
 message RegisterReq {
     RegisterType type = 1;
@@ -67,4 +71,10 @@ message LoginReq {
     string    secret = 3;
     string    code = 4;
     string    org_id = 5;
+}
+message ResetPasswordReq {
+    ResetPasswordType type = 1;
+    string key = 2;
+    string secret = 3;
+    string code = 4;
 }

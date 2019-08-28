@@ -5,16 +5,31 @@ package core;
 
 // add credential to prevent evil usage
 service DalUserService {
-    rpc CheckPhoneExists(UserPhoneReq) returns (Empty);
     //--------------------------------------------------- user
-    //--- create a user
-    rpc WriteUser(User) returns (UserWithOrg);
-    //--- query a single user
+    //--- Create a User
+    rpc CreateUser(User) returns (UserWithOrg);
+    //--- Update a User
+    rpc UpdateUser(UpdateUserReq) returns (Empty);
+    //--- Read a single user
     rpc ReadUser(User) returns (UserWithOrg);
-    //--- query users with params
+    //--- Read a user list
     rpc ReadUsers(ReadUsersReq) returns (ReadUsersResp);
+    //--- Delete a user by id/username/phone/email
+    rpc DeleteUser(User) returns (UserWithOrg);
+    //-------- others
+    rpc VerifyUniqueUser(User) returns (Empty);
 }
-
+enum UpdateUserType {
+    UPDATE_USER_TYPE_NULL = 0;
+    UPDATE_USER_TYPE_ID = 1;
+    UPDATE_USER_TYPE_USERNAME = 2;
+    UPDATE_USER_TYPE_PHONE = 3;
+    UPDATE_USER_TYPE_EMAIL = 4;
+}
+message UpdateUserReq {
+    UpdateUserType type = 1;
+    User user = 2;
+}
 message ReadUsersReq {
     User user = 1;
     int64 offset_id = 2;
@@ -22,8 +37,4 @@ message ReadUsersReq {
 }
 message ReadUsersResp {
     repeated User users = 1;
-}
-
-message UserPhoneReq {
-    string phone = 1;
 }
