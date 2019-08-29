@@ -6,12 +6,12 @@ package core;
 service SrvSecurityService {
     rpc SendPhoneCode(SmsReq) returns (Empty) {
         option (google.api.http) = {
-            get: "/api/sms/send/{phone}"
+            get: "/rpc/sms/send/{phone}"
         };
     }
     rpc VerifyPhoneCode(SmsVerifyReq) returns (Empty) {
         option (google.api.http) = {
-            get: "/api/sms/verify/{phone}/{code}"
+            get: "/rpc/sms/verify/{phone}/{code}"
         };
     }
 }
