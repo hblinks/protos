@@ -7,31 +7,31 @@ import "core_common.proto";
 service SrvCoreUserService {
     rpc Register(RegisterReq) returns (UserWithOrg) {
         option (google.api.http) = {
-            post: "/api/auth/register"
+            post: "/rpc/auth/register"
             body: "*"
         };
     }
     rpc Login(LoginReq) returns (UserWithOrg) {
         option (google.api.http) = {
-            post: "/api/auth/login"
+            post: "/rpc/auth/login"
             body: "*"
         };
     }
     rpc ResetPassword(ResetPasswordReq) returns (Empty) {
         option (google.api.http) = {
-            post: "/api/auth/reset-password"
+            post: "/rpc/auth/reset-password"
             body: "*"
         };
     }
     rpc Activate(Empty) returns (Empty) {
         option (google.api.http) = {
-            post: "/api/auth/activate"
+            post: "/rpc/auth/activate"
             body: "*"
         };
     }
     rpc UserInfo(Empty) returns (Empty) {
         option (google.api.http) = {
-            get: "/api/auth/info"
+            get: "/rpc/auth/info"
         };
     }
 }
