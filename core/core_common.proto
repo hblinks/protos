@@ -7,8 +7,16 @@ enum EntityStatus {
     ENTITY_STATUS_NORMAL = 1;
     ENTITY_STATUS_DELETED = 2;
     ENTITY_STATUS_INACTIVATED = 3;
+    ENTITY_STATUS_DEPRECATED = 4;
 }
-
+enum Language {
+    LANG_NULL = 0;
+    LANG_ZH_CN = 1;
+}
+enum Country {
+    COUNTRY_NULL = 0;
+    COUNTRY_CHINA = 1;
+}
 message User {
     int64 id = 1;
     int64 org_id = 2;
@@ -31,4 +39,7 @@ message UserWithOrg {
     repeated OrgWithAuthorities org_info = 2;
 }
 
+message IdQueryReq {
+    int64 id = 1;
+}
 message Empty {}
