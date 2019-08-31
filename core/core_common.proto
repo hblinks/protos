@@ -39,7 +39,25 @@ message UserWithOrg {
     repeated OrgWithAuthorities org_info = 2;
 }
 
+message PaginationReq {
+    int64 idx = 1; // = page or offset according to specific method
+    int64 size = 2;
+}
+message AuthorizedPaginationReq {
+    int64 user_id = 1;
+    int64 org_id = 2;
+    int64 offset = 3;
+    int64 limit = 4;
+}
 message IdQueryReq {
     int64 id = 1;
+}
+message AuthorizedIdQueryReq {
+    int64 id = 1;
+    int64 user_id = 2;
+    int64 org_id = 3;
+}
+message IdsQueryReq {
+    repeated int64 ids = 1;
 }
 message Empty {}
