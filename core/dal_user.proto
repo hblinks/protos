@@ -32,9 +32,9 @@ message UpdateUserReq {
 }
 message ReadUsersReq {
     User user = 1;
-    PaginationReq pagination = 2;
+    Pagination pagination = 2;
 }
 message ReadUsersResp {
     repeated User data = 1;
-    PaginationReq pagination = 2;
+    Pagination pagination = 2;
 }
