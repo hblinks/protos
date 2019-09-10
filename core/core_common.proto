@@ -46,8 +46,7 @@ message PaginationReq {
 message AuthorizedPaginationReq {
     int64 user_id = 1;
     int64 org_id = 2;
-    int64 offset = 3;
-    int64 limit = 4;
+    PaginationReq pagination = 3;
 }
 message IdQueryReq {
     int64 id = 1;
@@ -59,5 +58,21 @@ message AuthorizedIdQueryReq {
 }
 message IdsQueryReq {
     repeated int64 ids = 1;
+}
+message AuthorizedIdsQueryReq {
+    repeated int64 ids = 1;
+    int64 user_id = 2;
+    int64 org_id = 3;
+}
+
+message StringQueryReq {
+    string query = 1;
+    PaginationReq pagination = 2;
+}
+message AuthorizedStringQueryReq {
+    string query = 1;
+    int64 user_id = 2;
+    int64 org_id = 3;
+    PaginationReq pagination = 4;
 }
 message Empty {}
