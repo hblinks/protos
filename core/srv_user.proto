@@ -3,6 +3,7 @@ package core;
 option java_package = "com.bootapp.core.grpc";
 import "google/api/annotations.proto";
 import "core_common.proto";
+import "google/protobuf/wrappers.proto";
 
 service SrvCoreUserService {
     rpc Register(RegisterReq) returns (UserWithOrg) {
@@ -60,21 +61,21 @@ enum ResetPasswordType {
 
 message RegisterReq {
     RegisterType type = 1;
-    string    key = 2;
-    string    secret = 3;
-    string    code = 4;
-    string    referral_code = 5;
+    google.protobuf.StringValue    key = 2;
+    google.protobuf.StringValue    secret = 3;
+    google.protobuf.StringValue    code = 4;
+    google.protobuf.StringValue    referral_code = 5;
 }
 message LoginReq {
     LoginType type = 1;
-    string      key = 2;
-    string    secret = 3;
-    string    code = 4;
-    string    org_id = 5;
+    google.protobuf.StringValue      key = 2;
+    google.protobuf.StringValue    secret = 3;
+    google.protobuf.StringValue    code = 4;
+    int64    org_id = 5;
 }
 message ResetPasswordReq {
     ResetPasswordType type = 1;
-    string key = 2;
-    string secret = 3;
-    string code = 4;
+    google.protobuf.StringValue key = 2;
+    google.protobuf.StringValue secret = 3;
+    google.protobuf.StringValue code = 4;
 }

@@ -1,6 +1,7 @@
 syntax="proto3";
 import "google/api/annotations.proto";
 import "core_common.proto";
+import "google/protobuf/wrappers.proto";
 option java_package = "com.bootapp.core.grpc";
 package core;
 service SrvSecurityService {
@@ -24,14 +25,14 @@ enum SmsType {
     SMS_LANG_CN = 101;
 }
 message SmsReq {
-    string phone = 1;
+    google.protobuf.StringValue phone = 1;
     SmsType type = 2;
     SmsType lang = 3;
-    string text = 4;
+    google.protobuf.StringValue text = 4;
 }
 
 message SmsVerifyReq {
-    string phone = 1;
-    string code = 2;
+    google.protobuf.StringValue phone = 1;
+    google.protobuf.StringValue code = 2;
     SmsType type = 3;
 }
