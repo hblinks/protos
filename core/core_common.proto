@@ -1,5 +1,6 @@
 syntax="proto3";
 option java_package = "com.bootapp.core.grpc";
+import "google/protobuf/wrappers.proto";
 package core;
 
 enum EntityStatus {
@@ -21,10 +22,10 @@ message User {
     int64 id = 1;
     int64 org_id = 2;
     EntityStatus status = 3;
-    string phone = 4;
-    string email = 5;
-    string username = 6;
-    string password = 7;
+    google.protobuf.StringValue phone = 4;
+    google.protobuf.StringValue email = 5;
+    google.protobuf.StringValue username = 6;
+    google.protobuf.StringValue password = 7;
     int64 create_at = 8;
     int64 update_at = 9;
 }
@@ -65,7 +66,6 @@ message AuthorizedIdsQueryReq {
     int64 user_id = 2;
     int64 org_id = 3;
 }
-
 message StringQueryReq {
     string query = 1;
     Pagination pagination = 2;
