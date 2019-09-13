@@ -3,7 +3,6 @@ package core;
 option java_package = "com.bootapp.core.grpc";
 import "google/api/annotations.proto";
 import "core_common.proto";
-import "google/protobuf/wrappers.proto";
 
 service SrvCoreUserService {
     rpc Register(RegisterReq) returns (UserWithOrg) {
