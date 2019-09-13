@@ -61,21 +61,21 @@ enum ResetPasswordType {
 
 message RegisterReq {
     RegisterType type = 1;
-    google.protobuf.StringValue    key = 2;
-    google.protobuf.StringValue    secret = 3;
-    google.protobuf.StringValue    code = 4;
-    google.protobuf.StringValue    referral_code = 5;
+    string    key = 2;
+    string    secret = 3;
+    string    code = 4;
+    string    referral_code = 5;
 }
 message LoginReq {
     LoginType type = 1;
-    google.protobuf.StringValue      key = 2;
-    google.protobuf.StringValue    secret = 3;
-    google.protobuf.StringValue    code = 4;
+    string      key = 2;
+    string    secret = 3;
+    string    code = 4;
     int64    org_id = 5;
 }
 message ResetPasswordReq {
     ResetPasswordType type = 1;
-    google.protobuf.StringValue key = 2;
-    google.protobuf.StringValue secret = 3;
-    google.protobuf.StringValue code = 4;
+    string key = 2;
+    string secret = 3;
+    string code = 4;
 }
