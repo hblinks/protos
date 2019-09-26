@@ -17,6 +17,11 @@ service SrvCoreUserService {
             body: "*"
         };
     }
+    rpc Logout(Empty) returns (Empty) {
+        option (google.api.http) = {
+            get: "/rpc/auth/logout"
+        };
+    }
     rpc ResetPassword(ResetPasswordReq) returns (Empty) {
         option (google.api.http) = {
             post: "/rpc/auth/reset-password"
