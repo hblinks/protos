@@ -9,6 +9,10 @@ enum EntityStatus {
     ENTITY_STATUS_DELETED = 2;
     ENTITY_STATUS_INACTIVATED = 3;
     ENTITY_STATUS_DEPRECATED = 4;
+
+    ENTITY_STATUS_SUBMITTED = 5;
+    ENTITY_STATUS_PROCESSING = 6;
+    ENTITY_STATUS_DONE = 7;
 }
 enum Language {
     LANG_NULL = 0;
@@ -17,6 +21,16 @@ enum Language {
 enum Country {
     COUNTRY_NULL = 0;
     COUNTRY_CHINA = 1;
+}
+enum AuthType {
+    AUTH_TYPE_NULL = 0;
+    AUTH_TYPE_READ = 1;
+    AUTH_TYPE_WRITE = 2;
+}
+enum UpdateType {
+    UPDATE_TYPE_NULL = 0;
+    UPDATE_TYPE_REPLACE = 1;
+    UPDATE_TYPE_APPEND = 2;
 }
 message User {
     int64 id = 1;
@@ -39,7 +53,40 @@ message UserWithOrg {
     User user = 1;
     repeated OrgWithAuthorities org_info = 2;
 }
+enum MessageType {
+    MESSAGE_TYPE_NULL = 0;
+    MESSAGE_TYPE_ORG = 1;
+    MESSAGE_TYPE_USER = 2;
+}
+enum ReceiveType {
+    RECEIVE_TYPE_NULL = 0;
+    RECEIVE_TYPE_EMAIL = 1;
+    RECEIVE_TYPE_SMS = 2;
+    RECEIVE_TYPE_SITE = 3;
+}
+message Message {
+    int64 id = 1;
+    MessageType type = 2;
+    ReceiveType receive_type = 3;
+    int64 org_id = 4;
+    int64 user_id = 5;
+    int64 to = 6;
+    google.protobuf.StringValue title = 7;
+    google.protobuf.StringValue content = 8;
+    string files = 9;
 
+    EntityStatus status = 10;
+    int64 create_at = 11;
+    int64 update_at = 12;
+
+    google.protobuf.StringValue contact_info = 20;
+}
+message MessageList {
+    repeated Message data = 1;
+    Pagination pagination = 2;
+}
+
+//===================================== Utils
 message Pagination {
     int64 idx = 1; // = page or offset according to specific method
     int64 size = 2;
@@ -77,3 +124,7 @@ message AuthorizedStringQueryReq {
     Pagination pagination = 4;
 }
 message Empty {}
+
+message StringsResp {
+    repeated string data = 1;
+}

@@ -14,6 +14,16 @@ service SrvSecurityService {
             get: "/rpc/sms/verify/{phone}/{code}"
         };
     }
+    rpc SendEmail(SendEmailReq) returns (Empty) {
+        option (google.api.http) = {
+            get: "/rpc/email/send/{email}"
+        };
+    }
+    rpc VerifyEmailCode(VerifyEmailCodeReq) returns (Empty) {
+        option (google.api.http) = {
+            get: "/rpc/email/verify/{email}/{code}"
+        };
+    }
 }
 
 enum SmsType {
@@ -21,12 +31,11 @@ enum SmsType {
     SMS_CODE_LOGIN = 1;
     SMS_CODE_REGISTER = 2;
     SMS_CODE_RESET_PASS = 3;
-    SMS_LANG_CN = 101;
 }
 message SmsReq {
     string phone = 1;
     SmsType type = 2;
-    SmsType lang = 3;
+    Language lang = 3;
     string text = 4;
 }
 
@@ -34,4 +43,28 @@ message SmsVerifyReq {
     string phone = 1;
     string code = 2;
     SmsType type = 3;
+}
+
+enum EmailType {
+    EMAIL_NULL = 0;
+    EMAIL_PLAIN = 1;
+    EMAIL_LINK_LOGIN = 2;
+    EMAIL_LINK_ACTIVATION = 3;
+    EMAIL_LINK_RESET_PASS = 4;
+    EMAIL_CODE_LOGIN = 5;
+    EMAIL_CODE_REGISTER = 6;
+    EMAIL_CODE_RESET_PASS = 7;
+
+}
+
+message SendEmailReq {
+    string email = 1;
+    string content = 2;
+    EmailType type = 3;
+    Language lang = 4;
+}
+
+message VerifyEmailCodeReq {
+    string email = 1;
+    string code = 2;
 }
