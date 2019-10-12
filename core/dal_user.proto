@@ -1,22 +1,22 @@
 syntax = "proto3";
 option java_package = "com.bootapp.core.grpc";
 import "core_common.proto";
-import "google/protobuf/wrappers.proto";
+//import "google/protobuf/wrappers.proto";
 package core;
 
 // add credential to prevent evil usage
 service DalUserService {
     //--------------------------------------------------- user
     //--- Create a User
-    rpc CreateUser(CreateUserReq) returns (UserWithOrg);
+    rpc CreateUser(CreateUserReq) returns (UserWithOrgAuth);
     //--- Update a User
     rpc UpdateUser(UpdateUserReq) returns (Empty);
-    //--- Read a single user
-    rpc ReadUser(ReadUserReq) returns (UserWithOrg);
+    //--- Read a single user with auth
+    rpc ReadUserAuth(ReadUserReq) returns (UserWithOrgAuth);
     //--- Read a user list
     rpc ReadUsers(ReadUsersReq) returns (UsersResp);
     //--- Read users with in operator
-    rpc ReadUsersIn(ReadUsersInReq) returns (UsersResp);
+    rpc ReadUsersIn(ReadUsersInReq) returns (UsersWithOrgsResp);
     //--- Delete a user by id/username/phone/email
     rpc DeleteUser(ReadUserReq) returns (Empty);
     //-------- others

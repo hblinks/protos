@@ -94,13 +94,22 @@ message OrgWithAuthorities {
     string authority_groups =3;
     string authorities = 4;
 }
-message UserWithOrg {
+message UserWithOrgAuth {
     User user = 1;
     repeated OrgWithAuthorities org_info = 2;
+}
+message UserWithOrgInfo {
+    User user = 1;
+    repeated Organization orgs = 2;
 }
 message UsersResp {
     repeated User data = 1;
     Pagination pagination = 2;
+}
+message UsersWithOrgsResp {
+    repeated UserWithOrgInfo data = 1;
+    Pagination pagination = 2;
+
 }
 // =========================================== Org
 message Organization {

@@ -6,13 +6,13 @@ import "core_common.proto";
 
 service SrvCoreUserService {
     // =============================================== users
-    rpc Register(RegisterReq) returns (UserWithOrg) {
+    rpc Register(RegisterReq) returns (UserWithOrgAuth) {
         option (google.api.http) = {
             post: "/rpc/auth/register"
             body: "*"
         };
     }
-    rpc Login(LoginReq) returns (UserWithOrg) {
+    rpc Login(LoginReq) returns (UserWithOrgAuth) {
         option (google.api.http) = {
             post: "/rpc/auth/login"
             body: "*"
@@ -41,11 +41,6 @@ service SrvCoreUserService {
         };
     }
     // =============================================== user management
-    rpc QueryUser(IdQueryReq) returns (UserWithOrg) {
-        option (google.api.http) = {
-            get: "/rpc/users/{id}"
-        };
-    }
     rpc QueryUsers(QueryUsersReq) returns (UsersResp) {
         option (google.api.http) = {
             get: "/rpc/users"
@@ -53,11 +48,6 @@ service SrvCoreUserService {
     }
 
     // =============================================== admin APIs
-    rpc AdminQueryUser(IdQueryReq) returns (UserWithOrg) {
-        option (google.api.http) = {
-            get: "/rpc/admin/users/{id}"
-        };
-    }
     rpc AdminQueryUsers(QueryUsersReq) returns (UsersResp) {
         option (google.api.http) = {
             get: "/rpc/admin/users"
