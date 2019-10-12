@@ -5,6 +5,7 @@ import "google/api/annotations.proto";
 import "core_common.proto";
 
 service SrvCoreUserService {
+    // =============================================== users
     rpc Register(RegisterReq) returns (UserWithOrg) {
         option (google.api.http) = {
             post: "/rpc/auth/register"
@@ -37,6 +38,29 @@ service SrvCoreUserService {
     rpc UserInfo(Empty) returns (Empty) {
         option (google.api.http) = {
             get: "/rpc/auth/info"
+        };
+    }
+    // =============================================== user management
+    rpc QueryUser(IdQueryReq) returns (UserWithOrg) {
+        option (google.api.http) = {
+            get: "/rpc/users/{id}"
+        };
+    }
+    rpc QueryUsers(QueryUsersReq) returns (UsersResp) {
+        option (google.api.http) = {
+            get: "/rpc/users"
+        };
+    }
+
+    // =============================================== admin APIs
+    rpc AdminQueryUser(IdQueryReq) returns (UserWithOrg) {
+        option (google.api.http) = {
+            get: "/rpc/admin/users/{id}"
+        };
+    }
+    rpc AdminQueryUsers(QueryUsersReq) returns (UsersResp) {
+        option (google.api.http) = {
+            get: "/rpc/admin/users"
         };
     }
 }
@@ -82,4 +106,10 @@ message ResetPasswordReq {
     string key = 2;
     string secret = 3;
     string code = 4;
+}
+
+message QueryUsersReq {
+    User user = 1;
+    int64 dept_id = 2;
+    Pagination pagination = 3;
 }

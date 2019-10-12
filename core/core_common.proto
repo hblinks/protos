@@ -3,6 +3,7 @@ option java_package = "com.bootapp.core.grpc";
 import "google/protobuf/wrappers.proto";
 package core;
 
+//===================================== Common Types
 enum EntityStatus {
     ENTITY_STATUS_NULL = 0;
     ENTITY_STATUS_NORMAL = 1;
@@ -32,61 +33,6 @@ enum UpdateType {
     UPDATE_TYPE_REPLACE = 1;
     UPDATE_TYPE_APPEND = 2;
 }
-message User {
-    int64 id = 1;
-    int64 org_id = 2;
-    EntityStatus status = 3;
-    google.protobuf.StringValue phone = 4;
-    google.protobuf.StringValue email = 5;
-    google.protobuf.StringValue username = 6;
-    google.protobuf.StringValue password = 7;
-    int64 create_at = 8;
-    int64 update_at = 9;
-}
-message OrgWithAuthorities {
-    int64 id = 1;
-    string name = 2;
-    string authority_groups =3;
-    string authorities = 4;
-}
-message UserWithOrg {
-    User user = 1;
-    repeated OrgWithAuthorities org_info = 2;
-}
-enum MessageType {
-    MESSAGE_TYPE_NULL = 0;
-    MESSAGE_TYPE_ORG = 1;
-    MESSAGE_TYPE_USER = 2;
-}
-enum ReceiveType {
-    RECEIVE_TYPE_NULL = 0;
-    RECEIVE_TYPE_EMAIL = 1;
-    RECEIVE_TYPE_SMS = 2;
-    RECEIVE_TYPE_SITE = 3;
-}
-message Message {
-    int64 id = 1;
-    MessageType type = 2;
-    ReceiveType receive_type = 3;
-    int64 org_id = 4;
-    int64 user_id = 5;
-    int64 to = 6;
-    google.protobuf.StringValue title = 7;
-    google.protobuf.StringValue content = 8;
-    string files = 9;
-
-    EntityStatus status = 10;
-    int64 create_at = 11;
-    int64 update_at = 12;
-
-    google.protobuf.StringValue contact_info = 20;
-}
-message MessageList {
-    repeated Message data = 1;
-    Pagination pagination = 2;
-}
-
-//===================================== Utils
 message Pagination {
     int64 idx = 1; // = page or offset according to specific method
     int64 size = 2;
@@ -127,4 +73,125 @@ message Empty {}
 
 message StringsResp {
     repeated string data = 1;
+}
+
+// =========================================== User
+message User {
+    int64 id = 1;
+    int64 org_id = 2;
+    EntityStatus status = 3;
+    google.protobuf.StringValue phone = 4;
+    google.protobuf.StringValue email = 5;
+    google.protobuf.StringValue username = 6;
+    google.protobuf.StringValue password = 7;
+    google.protobuf.StringValue name = 8;
+    int64 create_at = 9;
+    int64 update_at = 10;
+}
+message OrgWithAuthorities {
+    int64 id = 1;
+    string name = 2;
+    string authority_groups =3;
+    string authorities = 4;
+}
+message UserWithOrg {
+    User user = 1;
+    repeated OrgWithAuthorities org_info = 2;
+}
+message UsersResp {
+    repeated User data = 1;
+    Pagination pagination = 2;
+}
+// =========================================== Org
+message Organization {
+    int64 id = 1;
+    string code = 2;
+    int64 org_role_id = 3;
+    string name = 4;
+    EntityStatus status = 5;
+    int64 create_at = 6;
+    int64 update_at = 7;
+}
+message OrgsResp {
+    repeated Organization orgs = 1;
+    Pagination pagination = 2;
+}
+// =========================================== Dept
+message Department {
+    int64 id = 1;
+    int64 pid = 2;
+    int64 org_id = 3;
+    string name = 4;
+    string description = 5;
+    string remark = 6;
+    EntityStatus status = 7;
+    int64 create_at = 8;
+    int64 update_at = 9;
+}
+message DeptsResp {
+    repeated Department depts = 1;
+    Pagination pagination = 2;
+}
+// =========================================== Message
+enum MessageType {
+    MESSAGE_TYPE_NULL = 0;
+    MESSAGE_TYPE_ORG = 1;
+    MESSAGE_TYPE_USER = 2;
+}
+enum ReceiveType {
+    RECEIVE_TYPE_NULL = 0;
+    RECEIVE_TYPE_EMAIL = 1;
+    RECEIVE_TYPE_SMS = 2;
+    RECEIVE_TYPE_SITE = 3;
+}
+message Message {
+    int64 id = 1;
+    MessageType type = 2;
+    ReceiveType receive_type = 3;
+    int64 org_id = 4;
+    int64 user_id = 5;
+    int64 to = 6;
+    google.protobuf.StringValue title = 7;
+    google.protobuf.StringValue content = 8;
+    google.protobuf.StringValue files = 9;
+
+    EntityStatus status = 10;
+    int64 create_at = 11;
+    int64 update_at = 12;
+
+    google.protobuf.StringValue contact_info = 20;
+}
+message MessageResp {
+    repeated Message data = 1;
+    Pagination pagination = 2;
+}
+
+
+// ========================================== Relations
+enum RelationType {
+    RELATION_NULL = 0;
+    RELATION_USER_ORG_DEPT = 1;
+    RELATION_ORG_USER_PARTNER = 2;
+}
+message Relation {
+    int64 id = 1;
+    int64 source_id = 2;
+    int64 target_id = 3;
+    RelationType type = 4;
+    int64 attached_id1 = 5;
+    int64 attached_id2 = 6;
+    string value1 = 7;
+    string value2 = 8;
+}
+message DeptRelationsResp {
+    repeated Relation relations = 1;
+    Pagination pagination = 2;
+    map<int64, User> user_map = 3;
+    map<int64, Department> dept_map = 4;
+}
+message PartnerRelationsResp {
+    repeated Relation relations = 1;
+    Pagination pagination = 2;
+    map<int64, Organization> org_map = 3;
+    map<int64, User> user_map = 4;
 }
