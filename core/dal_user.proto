@@ -9,6 +9,8 @@ service DalUserService {
     //--------------------------------------------------- user
     //--- Create a User
     rpc CreateUser(CreateUserReq) returns (UserWithOrgAuth);
+    //--- Create users
+    rpc CreateUsers(CreateUsersReq) returns (Empty);
     //--- Update a User
     rpc UpdateUser(UpdateUserReq) returns (Empty);
     //--- Read a single user with auth
@@ -16,7 +18,7 @@ service DalUserService {
     //--- Read a user list
     rpc ReadUsers(ReadUsersReq) returns (UsersResp);
     //--- Read users with in operator
-    rpc ReadUsersIn(ReadUsersInReq) returns (UsersWithOrgsResp);
+    rpc ReadUsersIn(ReadUsersInReq) returns (UsersResp);
     //--- Delete a user by id/username/phone/email
     rpc DeleteUser(ReadUserReq) returns (Empty);
     //-------- others
@@ -59,6 +61,11 @@ message CreateUserReq {
     int64 user_id = 2;
     User user = 3;
 }
+message CreateUsersReq {
+    int64 org_id = 1;
+    int64 user_id = 2;
+    repeated User data = 3;
+}
 message ReadUserReq {
     int64 org_id = 1;
     int64 user_id = 2;
@@ -81,10 +88,9 @@ message ReadUsersInReq {
     int64 user_id = 2;
 
     repeated int64 user_ids = 3;
-    repeated int64 org_ids = 4;
     repeated string phones = 5;
     repeated string emails = 6;
-    repeated string  usernames = 7;
+    repeated string usernames = 7;
     repeated string names = 8;
 
     Pagination pagination = 9;
