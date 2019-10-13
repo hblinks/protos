@@ -33,7 +33,7 @@ service DalUserService {
     rpc UpdateDept(DeptReq) returns (Empty);
     rpc ReadDepts(ReadDeptsReq) returns (DeptsResp);
     //--------------------------------------------------- relation
-    rpc CreateRelations(CreateRelationReq) returns (Empty);
+    rpc CreateRelations(CreateRelationsReq) returns (Empty);
     rpc DeleteRelations(AuthorizedIdsQueryReq) returns (Empty);
     rpc ReadDeptRelations(ReadRelationReq) returns (DeptRelationsResp);
     rpc ReadPartnerRelations(ReadRelationReq) returns (PartnerRelationsResp);
@@ -120,10 +120,10 @@ message ReadDeptsReq {
     Pagination pagination = 4;
 }
 // =========================================== Relation
-message CreateRelationReq {
+message CreateRelationsReq {
     int64 org_id = 1;
     int64 user_id = 2;
-    Relation relation = 3;
+    repeated Relation relation = 3;
 }
 message ReadRelationReq {
     int64 org_id = 1;
