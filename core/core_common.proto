@@ -186,6 +186,9 @@ message Relation {
     int64 attached_id2 = 6;
     string value1 = 7;
     string value2 = 8;
+    EntityStatus status = 9;
+    int64 create_at = 10;
+    int64 update_at = 11;
 }
 message DeptRelationsResp {
     repeated Relation relations = 1;
