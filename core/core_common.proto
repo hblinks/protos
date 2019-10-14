@@ -184,8 +184,8 @@ message Relation {
     RelationType type = 4;
     int64 attached_id1 = 5;
     int64 attached_id2 = 6;
-    string value1 = 7;
-    string value2 = 8;
+    google.protobuf.StringValue value1 = 7;
+    google.protobuf.StringValue value2 = 8;
     EntityStatus status = 9;
     int64 create_at = 10;
     int64 update_at = 11;
