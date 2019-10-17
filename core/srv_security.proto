@@ -16,7 +16,8 @@ service SrvSecurityService {
     }
     rpc SendEmail(SendEmailReq) returns (Empty) {
         option (google.api.http) = {
-            get: "/rpc/email/send/{email}"
+            post: "/rpc/email/send"
+            body: "*"
         };
     }
     rpc VerifyEmailCode(VerifyEmailCodeReq) returns (Empty) {
@@ -24,8 +25,25 @@ service SrvSecurityService {
             get: "/rpc/email/verify/{email}/{code}"
         };
     }
+    rpc Cipher(CipherReq) returns (CipherResp);
 }
-
+enum CipherType {
+    CIPHER_TYPE_NULL = 0;
+    CIPHER_TYPE_RS256_SIGN = 1;
+    CIPHER_TYPE_RS256_VERIFY = 2;
+    CIPHER_TYPE_AES_ENCRYPT = 3;
+    CIPHER_TYPE_AES_DECRYPT = 4;
+}
+message CipherReq {
+    CipherType type = 1;
+    string data = 2;
+    string sig = 3;
+}
+message CipherResp {
+    bool valid = 1;
+    string data = 2;
+    string sig = 3;
+}
 enum SmsType {
     SMS_NULL = 0;
     SMS_CODE_LOGIN = 1;
@@ -59,9 +77,10 @@ enum EmailType {
 
 message SendEmailReq {
     string email = 1;
-    string content = 2;
-    EmailType type = 3;
-    Language lang = 4;
+    string subject = 2;
+    string content = 3;
+    EmailType type = 4;
+    Language lang = 5;
 }
 
 message VerifyEmailCodeReq {

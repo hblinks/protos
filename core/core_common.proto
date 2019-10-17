@@ -144,9 +144,9 @@ enum MessageType {
 }
 enum ReceiveType {
     RECEIVE_TYPE_NULL = 0;
-    RECEIVE_TYPE_EMAIL = 1;
-    RECEIVE_TYPE_SMS = 2;
-    RECEIVE_TYPE_SITE = 3;
+    RECEIVE_TYPE_SITE = 1;
+    RECEIVE_TYPE_EMAIL = 2; //reserved
+    RECEIVE_TYPE_SMS = 3; //reserved
 }
 message Message {
     int64 id = 1;
