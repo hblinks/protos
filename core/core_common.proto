@@ -190,6 +190,10 @@ message Relation {
     int64 create_at = 10;
     int64 update_at = 11;
 }
+message RelationsResp {
+    repeated Relation relations = 1;
+    Pagination pagination = 2;
+}
 message DeptRelationsResp {
     repeated Relation relations = 1;
     Pagination pagination = 2;

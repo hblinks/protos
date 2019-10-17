@@ -35,6 +35,7 @@ service DalUserService {
     //--------------------------------------------------- relation
     rpc CreateRelations(CreateRelationsReq) returns (Empty);
     rpc DeleteRelations(AuthorizedIdsQueryReq) returns (Empty);
+    rpc ReadRelations(ReadRelationReq) returns (RelationsResp);
     rpc ReadDeptRelations(ReadRelationReq) returns (DeptRelationsResp);
     rpc ReadPartnerRelations(ReadRelationReq) returns (PartnerRelationsResp);
     rpc ReadOrgPartnersIn(ReadOrgPartnersInReq) returns (PartnerRelationsResp);
