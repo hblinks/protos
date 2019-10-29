@@ -33,10 +33,19 @@ enum UpdateType {
     UPDATE_TYPE_REPLACE = 1;
     UPDATE_TYPE_APPEND = 2;
 }
+enum SortType {
+    SORT_TYPE_NULL = 0;
+    SORT_TYPE_TIME_ASC = 1;
+    SORT_TYPE_TIME_DESC = 2;
+    SORT_TYPE_ID_ASC = 3;
+    SORT_TYPE_ID_DESC = 4;
+}
 message Pagination {
     int64 idx = 1; // = page or offset according to specific method
     int64 size = 2;
-    int64 total = 3;
+    SortType sort = 3;
+    int64 total = 4;
+
 }
 message AuthorizedPaginationReq {
     int64 user_id = 1;
