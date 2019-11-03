@@ -62,6 +62,7 @@ enum RegisterType {
     REGISTER_TYPE_EMAIL_PASS = 3;
     REGISTER_TYPE_PHONE_CODE = 4;
     REGISTER_TYPE_PHONE_PASS_CODE = 5;
+    REGISTER_TYPE_CIPHER = 6;
 }
 enum LoginType {
     LOGIN_TYPE_NULL = 0;
