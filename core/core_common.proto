@@ -60,6 +60,14 @@ message AuthorizedIdQueryReq {
     int64 user_id = 2;
     int64 org_id = 3;
 }
+message PaginatedIdQueryReq {
+    int64 id = 1;
+    Pagination pagination = 2;
+}
+message PaginatedIdsQueryReq {
+    repeated int64 ids = 1;
+    Pagination pagination = 2;
+}
 message IdsQueryReq {
     repeated int64 ids = 1;
 }
@@ -129,22 +137,6 @@ message OrgsResp {
     repeated Organization orgs = 1;
     Pagination pagination = 2;
 }
-// =========================================== Dept
-message Department {
-    int64 id = 1;
-    int64 pid = 2;
-    int64 org_id = 3;
-    string name = 4;
-    string description = 5;
-    string remark = 6;
-    EntityStatus status = 7;
-    int64 create_at = 8;
-    int64 update_at = 9;
-}
-message DeptsResp {
-    repeated Department depts = 1;
-    Pagination pagination = 2;
-}
 // =========================================== Message
 enum MessageType {
     MESSAGE_TYPE_NULL = 0;
@@ -183,8 +175,7 @@ message MessageResp {
 // ========================================== Relations
 enum RelationType {
     RELATION_NULL = 0;
-    RELATION_USER_ORG_DEPT = 1;
-    RELATION_ORG_USER_PARTNER = 2;
+    RELATION_ORG_USER_PARTNER = 1;
 }
 message Relation {
     int64 id = 1;
@@ -203,15 +194,26 @@ message RelationsResp {
     repeated Relation relations = 1;
     Pagination pagination = 2;
 }
-message DeptRelationsResp {
-    repeated Relation relations = 1;
-    Pagination pagination = 2;
-    map<int64, User> user_map = 3;
-    map<int64, Department> dept_map = 4;
-}
 message PartnerRelationsResp {
     repeated Relation relations = 1;
     Pagination pagination = 2;
     map<int64, Organization> org_map = 3;
     map<int64, User> user_map = 4;
+}
+
+// =========================================== Dept
+message Department {
+    int64 id = 1;
+    int64 pid = 2;
+    int64 org_id = 3;
+    string name = 4;
+    string description = 5;
+    string remark = 6;
+    EntityStatus status = 7;
+    int64 create_at = 8;
+    int64 update_at = 9;
+}
+message DeptsResp {
+    repeated Department data = 1;
+    Pagination pagination = 2;
 }

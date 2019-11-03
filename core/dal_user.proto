@@ -28,16 +28,11 @@ service DalUserService {
     rpc UpdateOrg(OrgReq) returns (Empty);
     rpc ReadOrgs(ReadOrgsReq) returns (OrgsResp);
     rpc DeleteUserOrgs(AuthorizedIdsQueryReq) returns (Empty);
-    //--------------------------------------------------- dept
-    rpc CreateDept(DeptReq) returns (Empty);
-    rpc UpdateDept(DeptReq) returns (Empty);
-    rpc ReadDepts(ReadDeptsReq) returns (DeptsResp);
     //--------------------------------------------------- relation
     rpc CreateRelations(RelationsReq) returns (Empty);
     rpc UpdateRelations(RelationsReq) returns (Empty);
     rpc DeleteRelations(AuthorizedIdsQueryReq) returns (Empty);
     rpc ReadRelations(ReadRelationReq) returns (RelationsResp);
-    rpc ReadDeptRelations(ReadRelationReq) returns (DeptRelationsResp);
     rpc ReadPartnerRelations(ReadRelationReq) returns (PartnerRelationsResp);
     rpc ReadOrgPartnersIn(ReadOrgPartnersInReq) returns (PartnerRelationsResp);
     //--------------------------------------------------- message
@@ -48,8 +43,11 @@ service DalUserService {
     rpc ReadInbox(ReadInboxReq) returns (MessageResp);
     rpc UpdateInbox(UpdateInboxReq) returns (Empty);
     rpc DeleteInbox(UpdateInboxReq) returns (Empty);
-
     rpc DistributeMessages(Empty) returns (Empty);
+
+    // ========================================= dept
+    rpc UpdateDept(DeptReq) returns (Empty);
+    rpc ReadDepts(ReadDeptsReq) returns (DeptsResp);
 }
 enum UpdateUserType {
     UPDATE_USER_TYPE_NULL = 0;
@@ -57,6 +55,18 @@ enum UpdateUserType {
     UPDATE_USER_TYPE_USERNAME = 2;
     UPDATE_USER_TYPE_PHONE = 3;
     UPDATE_USER_TYPE_EMAIL = 4;
+}
+// =========================================== Dept
+message DeptReq {
+    int64 org_id = 1;
+    int64 user_id = 2;
+    Department dept = 3;
+}
+message ReadDeptsReq {
+    int64 org_id = 1;
+    int64 user_id = 2;
+    Department dept = 3;
+    Pagination pagination = 4;
 }
 // =========================================== User
 message CreateUserReq {
@@ -108,18 +118,6 @@ message ReadOrgsReq {
     int64 org_id = 1;
     int64 user_id = 2;
     Organization org = 3;
-    Pagination pagination = 4;
-}
-// =========================================== Dept
-message DeptReq {
-    int64 org_id = 1;
-    int64 user_id = 2;
-    Department dept = 3;
-}
-message ReadDeptsReq {
-    int64 org_id = 1;
-    int64 user_id = 2;
-    Department dept = 3;
     Pagination pagination = 4;
 }
 // =========================================== Relation
