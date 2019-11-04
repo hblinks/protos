@@ -19,35 +19,31 @@ service DalUserService {
     rpc ReadUsers(ReadUsersReq) returns (UsersResp);
     //--- Read users with in operator
     rpc ReadUsersIn(ReadUsersInReq) returns (UsersResp);
-    //--- Delete a user by id/username/phone/email
-    rpc DeleteUser(ReadUserReq) returns (Empty);
     //-------- others
     rpc VerifyUniqueUser(User) returns (Empty);
     //--------------------------------------------------- org
-    rpc CreateOrg(OrgReq) returns (Empty);
-    rpc UpdateOrg(OrgReq) returns (Empty);
+    rpc UpdateOrgs(OrgsReq) returns (Empty);
     rpc ReadOrgs(ReadOrgsReq) returns (OrgsResp);
+    //--------------------------------------------------- user-org
+ //   rpc CreateUserOrgs() returns (Empty);
+ //   rpc ReadUserOrgs() returns ();
     rpc DeleteUserOrgs(AuthorizedIdsQueryReq) returns (Empty);
+    // ========================================= dept
+    rpc UpdateDepts(DeptsReq) returns (Empty);
+    rpc ReadDepts(ReadDeptsReq) returns (DeptsResp);
     //--------------------------------------------------- relation
-    rpc CreateRelations(RelationsReq) returns (Empty);
     rpc UpdateRelations(RelationsReq) returns (Empty);
     rpc DeleteRelations(AuthorizedIdsQueryReq) returns (Empty);
     rpc ReadRelations(ReadRelationReq) returns (RelationsResp);
     rpc ReadPartnerRelations(ReadRelationReq) returns (PartnerRelationsResp);
     rpc ReadOrgPartnersIn(ReadOrgPartnersInReq) returns (PartnerRelationsResp);
     //--------------------------------------------------- message
-    rpc CreateMessage(UpdateMessageReq) returns (Empty);
     rpc ReadMessages(ReadMessagesReq) returns(MessageResp);
-    rpc UpdateMessage(UpdateMessageReq) returns (Empty);
+    rpc UpdateMessages(MessagesReq) returns (Empty);
+    rpc DistributeMessages(Empty) returns (Empty);
     //----------- message receives
     rpc ReadInbox(ReadInboxReq) returns (MessageResp);
-    rpc UpdateInbox(UpdateInboxReq) returns (Empty);
     rpc DeleteInbox(UpdateInboxReq) returns (Empty);
-    rpc DistributeMessages(Empty) returns (Empty);
-
-    // ========================================= dept
-    rpc UpdateDept(DeptReq) returns (Empty);
-    rpc ReadDepts(ReadDeptsReq) returns (DeptsResp);
 }
 enum UpdateUserType {
     UPDATE_USER_TYPE_NULL = 0;
@@ -56,16 +52,28 @@ enum UpdateUserType {
     UPDATE_USER_TYPE_PHONE = 3;
     UPDATE_USER_TYPE_EMAIL = 4;
 }
+message UserOrgEdit {
+    int64 user_id = 1;
+    int64 org_id = 2;
+}
+message CreateUserOrgsReq {
+    int64 user_id = 1;
+    int64 org_id = 2;
+    repeated UserOrgEdit data = 3;
+}
+message UserOrgsResp {
+
+}
 // =========================================== Dept
-message DeptReq {
+message DeptsReq {
     int64 org_id = 1;
     int64 user_id = 2;
-    Department dept = 3;
+    repeated DepartmentEdit data = 3;
 }
 message ReadDeptsReq {
     int64 org_id = 1;
     int64 user_id = 2;
-    Department dept = 3;
+    DepartmentEdit dept = 3;
     Pagination pagination = 4;
 }
 // =========================================== User
@@ -109,15 +117,15 @@ message ReadUsersInReq {
     Pagination pagination = 9;
 }
 // =========================================== Org
-message OrgReq {
+message OrgsReq {
     int64 org_id = 1;
     int64 user_id = 2;
-    Organization org = 3;
+    repeated OrganizationEdit data = 3;
 }
 message ReadOrgsReq {
     int64 org_id = 1;
     int64 user_id = 2;
-    Organization org = 3;
+    OrganizationEdit org = 3;
     Pagination pagination = 4;
 }
 // =========================================== Relation
@@ -138,10 +146,10 @@ message ReadOrgPartnersInReq {
     repeated int64 partner_ids = 3;
 }
 // =========================================== Message
-message UpdateMessageReq {
+message MessagesReq {
     int64 org_id = 1;
     int64 user_id = 2;
-    Message message = 3;
+    repeated Message data = 3;
 }
 message ReadMessagesReq {
     int64 org_id = 1;

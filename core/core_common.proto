@@ -133,8 +133,15 @@ message Organization {
     int64 create_at = 6;
     int64 update_at = 7;
 }
+message OrganizationEdit {
+    int64 id = 1;
+    google.protobuf.StringValue code = 2;
+    google.protobuf.Int64Value org_role_id = 3;
+    google.protobuf.StringValue name = 4;
+    EntityStatus status = 5;
+}
 message OrgsResp {
-    repeated Organization orgs = 1;
+    repeated Organization data = 1;
     Pagination pagination = 2;
 }
 // =========================================== Message
@@ -202,6 +209,15 @@ message PartnerRelationsResp {
 }
 
 // =========================================== Dept
+message DepartmentEdit {
+    int64 id = 1;
+    int64 pid = 2;
+    int64 org_id = 3;
+    google.protobuf.StringValue name = 4;
+    google.protobuf.StringValue description = 5;
+    google.protobuf.StringValue remark = 6;
+    EntityStatus status = 7;
+}
 message Department {
     int64 id = 1;
     int64 pid = 2;
