@@ -1,7 +1,6 @@
 syntax = "proto3";
 option java_package = "com.bootapp.core.grpc";
 import "core_common.proto";
-//import "google/protobuf/wrappers.proto";
 package core;
 
 // add credential to prevent evil usage
@@ -32,11 +31,12 @@ service DalUserService {
     rpc UpdateDepts(DeptsReq) returns (Empty);
     rpc ReadDepts(ReadDeptsReq) returns (DeptsResp);
     //--------------------------------------------------- relation
-    rpc UpdateRelations(RelationsReq) returns (Empty);
+    rpc UpdateRelations(UpdateRelationsReq) returns (Empty);
+    rpc ReadRelations(ReadRelationsReq) returns (RelationsResp);
     rpc DeleteRelations(AuthorizedIdsQueryReq) returns (Empty);
-    rpc ReadRelations(ReadRelationReq) returns (RelationsResp);
-    rpc ReadPartnerRelations(ReadRelationReq) returns (PartnerRelationsResp);
-    rpc ReadOrgPartnersIn(ReadOrgPartnersInReq) returns (PartnerRelationsResp);
+    // ---- extra
+    rpc ReadPartners(ReadPartnersReq) returns (PartnersResp);
+    rpc ReadPartnersIn(ReadPartnersInReq) returns (PartnersResp);
     //--------------------------------------------------- message
     rpc ReadMessages(ReadMessagesReq) returns(MessageResp);
     rpc UpdateMessages(MessagesReq) returns (Empty);
@@ -129,18 +129,29 @@ message ReadOrgsReq {
     Pagination pagination = 4;
 }
 // =========================================== Relation
-message RelationsReq {
+message UpdateRelationsReq {
     int64 org_id = 1;
     int64 user_id = 2;
     repeated Relation relation = 3;
 }
-message ReadRelationReq {
+message ReadRelationsReq {
     int64 org_id = 1;
     int64 user_id = 2;
     Relation relation = 3;
-    Pagination pagination = 9;
+    Pagination pagination = 100;
 }
-message ReadOrgPartnersInReq {
+message ReadPartnersReq {
+    int64 org_id = 1;
+    int64 user_id = 2;
+    RelationType type = 3;
+    string org_serial_number = 4;
+    string org_name = 5;
+    string contact_name = 6;
+    string contact_phone = 7;
+    string contact_email = 8;
+    Pagination pagination = 100;
+}
+message ReadPartnersInReq {
     int64 org_id = 1;
     int64 user_id = 2;
     repeated int64 partner_ids = 3;

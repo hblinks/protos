@@ -182,7 +182,8 @@ message MessageResp {
 // ========================================== Relations
 enum RelationType {
     RELATION_NULL = 0;
-    RELATION_ORG_USER_PARTNER = 1;
+    RELATION_ORG_USER_PARTNER_SUPPLIER = 1;
+    RELATION_ORG_USER_PARTNER_LOGISTICS = 2;
 }
 message Relation {
     int64 id = 1;
@@ -201,7 +202,7 @@ message RelationsResp {
     repeated Relation relations = 1;
     Pagination pagination = 2;
 }
-message PartnerRelationsResp {
+message PartnersResp {
     repeated Relation relations = 1;
     Pagination pagination = 2;
     map<int64, Organization> org_map = 3;
